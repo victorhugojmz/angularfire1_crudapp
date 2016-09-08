@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    
+    <meta charset="UTF-8">
+    <title>UPIICSA Firebase</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet/css" href="animate.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <script src="js/angular.js"></script>
+    <script src="js/app.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+    
+    <style>
+        body{
+            font-family: 'Varela Round', sans-serif;
+            background: #0A597E;
+        }
+        .panel-primary{
+            -webkit-box-shadow: 4px 13px 20px -8px rgba(0,0,0,0.78);
+            -moz-box-shadow: 4px 13px 20px -8px rgba(0,0,0,0.78);
+            box-shadow: 4px 13px 20px -8px rgba(0,0,0,0.78);
+            border-radius: 15px;
+        }
+        .panel
+        {
+
+            border-radius: 10px;
+        }
+        thead
+        {
+         background: #0A597E ;
+         color:white;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+
+    <div class="container">
+    <br>
+    <br>
+    
+<div class="panel panel-primary" ng-controller="ProductsCtrl">
+    
+        <div class="panel-heading" style="font-size:2em; background:#216EA4;">
+        Inventario
+        <button style="float:right; position: relative; " class="btn btn-success" ng-click="showForm()" ng-hide="addFormShow"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        
+        <button style="float:right; position: relative; " class="btn btn-warning" ng-click="hideForm()" ng-show="addFormShow"><i class="fa fa-close" aria-hidden="true"></i></button>
+        </div>
+
+    <form ng-submit="addFormSubmit()" ng-show="addFormShow">
+        
+        <input type="text" ng-model="productName" placeholder="Nombre" />
+        
+        <input type="text" ng-model="productCode" placeholder="Codigo"/>
+        <input type="text" ng-model="description" placeholder="Descricion" />
+        <input type="text" ng-model="price" placeholder="Precio" />
+        <input type="submit" value="Añadir Producto" class="btn btn-default btn-success" />
+    
+    </form>
+
+    <form ng-submit="editFormSubmit()" ng-show="editFormShow">
+     
+        <input type="text" ng-model="productName" placeholder="Name" />
+        <input type="text" ng-model="productCode" placeholder="Code" />
+        <input type="text" ng-model="description" placeholder="Description" />
+        <input type="text" ng-model="price" placeholder="Price" />
+        <input type="submit" value="Edit Product" class="btn btn-default btn-warning" />
+    
+    </form>
+    
+    <div class="panel panel-body">
+        
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr style="text-align:center;">
+                <td>Producto</td>
+                <td>
+                Código</td>
+                <td>Descripción</td>
+                <td>Precio</td>
+                <td>Opciones</td>
+            </tr>
+            </thead>
+            
+            <tbody class="table-striped">
+            <tr ng-repeat="product in products">
+                <td>{{ product.productName}}</td>
+                <td>{{ product.productCode }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td style="text-align:center;">
+                    <button class="btn btn-primary" ng-click="showProduct(product)" >Modificar</button>
+                    <button class="btn btn-danger" ng-click="deleteProduct(product)" >Eliminar</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+</body>
+</html>
